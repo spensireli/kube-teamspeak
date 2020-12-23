@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv0005-teamspeak
+  namespace: teamspeak
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: pv0005-teamspeak
+  resources:
+    requests:
+      storage: 5Gi

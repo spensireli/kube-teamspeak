@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamspeak
+  namespace: teamspeak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamspeak
+  template:
+    metadata:
+      labels:
+        app: teamspeak
+        namespace: teamspeak
+    spec:
+      containers:
+      - name: teamspeak
+        env:
+        - name: TS3SERVER_LICENSE
+          value: "accept"
+        image: teamspeak:3.13.3
+        ports:
+          - name: udp-port
+            containerPort: 9987
+          - name: next-port
+            containerPort: 10011
+          - name: next-next-port
+            containerPort: 30033
+        volumeMounts:
+          - name: teamspeak-data-dir
+            mountPath: /var/ts3server/
+      volumes:
+        - name: teamspeak-data-dir
+          persistentVolumeClaim:
+            claimName: pv0005-teamspeak
+
+
